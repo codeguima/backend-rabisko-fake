@@ -6,6 +6,7 @@ import { getAllTattoos, getTattooById } from '../controllers/tattooController.js
 import { getGeneralNotifications, getFollowingNotifications } from '../controllers/notificationController.js';
 import { getChatHistory, sendMessage, getActiveMessages, getArchivedMessages } from '../controllers/messageController.js'; // ✅ novo
 import { getFavoritedPosts, addFavoritePost } from '../controllers/favoriteController.js';
+import { getUserById } from '../controllers/userController.js';
 // ...
 const router = express.Router();
 
@@ -14,6 +15,8 @@ router.get('/profiles/:id', authenticate, getProfileById);
 
 router.post('/auth/register', register);
 router.post('/auth/login', login);
+
+router.get('/user/:id', authenticate, getUserById);
 
 router.get('/notifications/general', authenticate, getGeneralNotifications);
 router.get('/notifications/following', authenticate, getFollowingNotifications);
@@ -27,7 +30,7 @@ router.get('/tattoos/:id', authenticate, getTattooById);
 
 router.get('/messages/active', authenticate, getActiveMessages);
 router.get('/messages/archived', authenticate, getArchivedMessages);
-router.get('/messages/:user', authenticate, getChatHistory);  // ✅ novo
+router.get('/messages/private/:user', authenticate, getChatHistory);  // ✅ novo
 router.post('/messages/:user', authenticate, sendMessage);    // ✅ novo
 
 export default router;
